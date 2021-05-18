@@ -1,0 +1,64 @@
+(define append 
+  (lambda(lst1 lst2)
+     (if (eq? lst1 '()) 
+      lst2
+      (cons (car lst1) 
+            (append (cdr lst1) lst2))))
+  )
+(define reverse 
+  (lambda (lst)
+    (if (eq? lst '())
+        '()
+        (append (reverse(cdr lst))
+              (list(car lst)))
+        )
+    
+  )
+)
+(define duplicate-items
+   (lambda(lst dup-count)
+     (if (eq? lst '())
+         '()
+         (append 
+                 (xappend
+                   (car dup-count) (car lst))
+                   (duplicate-items (cdr lst) (append (cdr dup-count) (list (car dup-count)))))
+)))
+(define xappend
+  (lambda(x num)
+    (if (= x 0)
+        '()
+        (append (xappend  (- x 1) num) (list num))
+        )
+    )
+  )
+(define payment
+  (lambda (n coins-lst)
+    (if (= n 0) 1
+          (if(< n 0) 0
+          (if(eq? coins-lst '()) 0
+           (+ (payment n (minimize coins-lst (car coins-lst))) (payment (- n (car coins-lst)) (cdr coins-lst)))    
+    )
+  )
+)
+  ))
+(define minimize
+  (lambda (lst num)
+    (if (eq? lst '()) '()
+      (if (eq? (car lst) num)(minimize (cdr lst) num)
+          lst
+        )
+    )
+  )
+)
+(define compose-n
+  (lambda (f n)
+        (if (= n 1)
+            f
+            (lambda (x) ((compose-n f (- n 1)) (f x))))
+  ))
+ 
+
+    
+ 
+     
